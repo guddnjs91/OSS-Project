@@ -8,23 +8,24 @@ from arcus_mc_node import *
 app = Flask(__name__)
 app.secret_key = 'W0asf38r9sdsdjoq!@$89WX/,?RT'
 
+
 mySQL_config = {"user": "root",
                 "password": "1234",
                 "database": "test_db",
-                "host": "172.17.0.6"
+                "host": "172.17.0.2" # Target MySQL ip-address
                 }
 
-redis_host = "localhost"
-redis_port = 6000
 
 from mysql.connector.pooling import MySQLConnectionPool
-
 mysql_pool = MySQLConnectionPool(pool_name=None, pool_size=4, pool_reset_session=True, **mySQL_config)
 
 last_insert_key = None;
 
 client = Arcus(ArcusLocator(ArcusMCNodeAllocator(ArcusTranscoder())))
-client.connect("172.17.0.3:2181", "guddnjs91-cloud")
+client.connect("172.17.0.4:2181", "guddnjs91-cloud") # Target Arcus ip-address
+
+redis_host = "172.17.0.7" # Target nBase-ARC ip-address
+redis_port = 6000
 
 
 @app.route('/mysql_select')
@@ -86,7 +87,7 @@ def arcus_select():
         key = request.args['key']
         value = request.args['value']
 
-        ret = client.set(key, value, 20)
+        ret = client.set(key, value, 3600) # Expiration Time : 1 hour
 
         result = key + " set " + str(ret)
     except Exception as e:
