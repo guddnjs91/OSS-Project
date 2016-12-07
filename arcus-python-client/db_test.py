@@ -5,6 +5,8 @@ import redis
 from arcus import *
 from arcus_mc_node import *
 
+import sys, traceback
+
 app = Flask(__name__)
 app.secret_key = 'W0asf38r9sdsdjoq!@$89WX/,?RT'
 
@@ -47,6 +49,9 @@ def mysql_select():
             result = "Not Found"
     except Exception as e:
         result = e.msg
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         if connection is not None:
             connection.close()
@@ -72,6 +77,9 @@ def mysql_insert():
         result = key + " inserted"
     except Exception as e:
         result = e.msg
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         if connection is not None:
             connection.close()
@@ -92,6 +100,9 @@ def arcus_select():
         result = key + " set " + str(ret)
     except Exception as e:
         result = str(e)
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         pass
 
@@ -109,6 +120,9 @@ def arcus_insert():
         result = ret.get_result()
     except Exception as e:
         result = str(e)
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         pass
 
@@ -136,6 +150,9 @@ def nbase_arc_set():
         result = str(ret)
     except Exception as e:
         result = str(e)
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         pass
 
@@ -157,6 +174,9 @@ def nbase_arc_get():
         result = str(ret)
     except Exception as e:
         result = str(e)
+        print("*" * 20)
+        traceback.print_exc(file=sys.stdout)
+        print("#" * 20)
     finally:
         pass
 
