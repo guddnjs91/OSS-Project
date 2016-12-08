@@ -1,0 +1,3 @@
+[submodule "docker-hubblemon"]
+	path = docker-hubblemon
+	url = https://github.com/guddnjs91/hubblemon.git
